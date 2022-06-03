@@ -49,7 +49,7 @@ namespace SchoolRPG.GameMain.Entity
 
         public static bool IsCollide(EntityBase current, EntityBase other)
         {
-            Rect.zero.
+            return false;
         }
     }
 }
