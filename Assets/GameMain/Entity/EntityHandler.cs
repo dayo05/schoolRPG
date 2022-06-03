@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SchoolRPG.GameMain.Entity
@@ -12,7 +13,12 @@ namespace SchoolRPG.GameMain.Entity
         public GameObject map;
         public GameObject monster;
 
-        public List<GameObject> monsters = new();
+        private List<GameObject> monsters = new();
+
+        private void Start()
+        {
+            SpawnMonster((2, 2));
+        }
 
         public void SpawnMonster((int x, int y) loc)
         {
@@ -27,6 +33,6 @@ namespace SchoolRPG.GameMain.Entity
             monsters.Add(g);
         }
 
-        public IEnumerable Entities => monsters.Concat(new[]{player});
+        public IEnumerable<GameObject> Entities => monsters.Where(x => !x.IsDestroyed()).Concat(new[]{player});
     }
 }

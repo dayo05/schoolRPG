@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SchoolRPG.GameMain.Entity.AtkParticle;
 using UnityEngine;
@@ -13,12 +14,13 @@ namespace SchoolRPG.GameMain.Entity
         // Start is called before the first frame update
         void Start()
         {
+            Hp = 20;
             transform.position = GetCurrentWorldPos(2, 2);
             Atk.Add(ChairAtk);
             Atk.Add(ArrowAtk);
         }
 
-        private const float moveDist = 0.05f;
+        private float moveDist => 4.0f * Time.deltaTime;
         private Direction direction = Right;
 
         // Update is called once per frame
@@ -60,9 +62,12 @@ namespace SchoolRPG.GameMain.Entity
                 TryShoot(1, Right.I());
         }
 
-        public override double Hp { get; set; }
-        protected override float NuckbackDist { get; set; } = moveDist;
-        
+        protected override float NuckbackDist
+        {
+            get => moveDist;
+            set => throw new AccessViolationException("Not able to set NuckbackDist");
+        }
+
         public override float width { get; set; } = 1;
         public override float height { get; set; } = 1;
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace SchoolRPG.GameMain.Entity.AtkParticle
@@ -10,10 +11,7 @@ namespace SchoolRPG.GameMain.Entity.AtkParticle
         public int DataValue { get; set; } = -1;
 
         public GameObject cam;
-        private void Start()
-        {
-            cam = GameObject.Find("Main Camera");
-        }
+        private bool isFinished = false;
 
         protected virtual void Update()
         {
@@ -21,24 +19,34 @@ namespace SchoolRPG.GameMain.Entity.AtkParticle
                 Destroy(gameObject);
             else
             {
-                foreach (var x in cam.GetComponent<EntityHandler>().monsters)
-                {
-                    if (x.TryGetComponent(out Monster monster)) OnMonsterAtk(monster);
-                    if (x.TryGetComponent(out Player player)) OnPlayerAtk(player);
-                }
+                if (isFinished) return;
+
+                foreach (var component in cam.GetComponent<EntityHandler>().Entities
+                             .Select(x => x.GetComponent<UnitBase>()).Where(component => IsCollide(component, this)))
+                    switch (component)
+                    {
+                        case Monster monster:
+                            OnMonsterAtk(monster);
+                            break;
+                        case Player player:
+                            OnPlayerAtk(player);
+                            break;
+                    }
             }
         }
 
         protected virtual void OnMonsterAtk(Monster monster)
         {
             monster.Hp -= Atk;
-            Destroy(gameObject);
+            Destroy(gameObject, 0.1f);
+            isFinished = true;
         }
 
         protected virtual void OnPlayerAtk(Player player)
         {
             player.Hp -= Atk;
-            Destroy(gameObject);
+            Destroy(gameObject, 0.1f);
+            isFinished = true;
         }
     }
 }

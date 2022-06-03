@@ -49,7 +49,11 @@ namespace SchoolRPG.GameMain.Entity
 
         public static bool IsCollide(EntityBase current, EntityBase other)
         {
-            return false;
+            return !(other.transform.position.x - other.width / 2 > current.transform.position.x + current.width / 2 ||
+                     other.transform.position.x + other.width / 2 < current.transform.position.x - current.width / 2) &&
+                   !(other.transform.position.y - other.height / 2 >
+                     current.transform.position.y + current.height / 2 ||
+                     other.transform.position.y + other.height / 2 < current.transform.position.y - current.height / 2);
         }
     }
 }

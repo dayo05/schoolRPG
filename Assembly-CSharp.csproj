@@ -11,7 +11,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>SchoolRPG</RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{7c5d52ec-4248-b0de-3b0c-2919a1e277d9}</ProjectGuid>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
@@ -42,14 +42,14 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\GameMain\Entity\AtkParticle\PlayerArrowAtk.cs" />
-     <Compile Include="Assets\GameMain\Entity\EntityBase.cs" />
-     <Compile Include="Assets\GameMain\Entity\UnitBase.cs" />
-     <Compile Include="Assets\GameMain\Entity\Direction.cs" />
-     <Compile Include="Assets\GameMain\Entity\AtkParticle\PlayerChairAtk.cs" />
      <Compile Include="Assets\GameMain\Entity\Monster.cs" />
-     <Compile Include="Assets\GameMain\Entity\AtkParticle\MonsterAtk.cs" />
-     <Compile Include="Assets\GameMain\Entity\AtkParticle\AtkParticleBase.cs" />
+     <Compile Include="Assets\GameMain\Entity\AtkParticle\PlayerChairAtk.cs" />
      <Compile Include="Assets\GameMain\Entity\EntityHandler.cs" />
+     <Compile Include="Assets\GameMain\Entity\AtkParticle\MonsterAtk.cs" />
+     <Compile Include="Assets\GameMain\Entity\UnitBase.cs" />
+     <Compile Include="Assets\GameMain\Entity\AtkParticle\AtkParticleBase.cs" />
+     <Compile Include="Assets\GameMain\Entity\Direction.cs" />
+     <Compile Include="Assets\GameMain\Entity\EntityBase.cs" />
      <Compile Include="Assets\GameMain\Entity\Player.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.4f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

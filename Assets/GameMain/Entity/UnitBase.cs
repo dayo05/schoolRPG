@@ -24,17 +24,34 @@ namespace SchoolRPG.GameMain.Entity
             return g;
         }
 
-        public abstract double Hp { get; set; }
+        private double _hp;
+
+        public double Hp
+        {
+            get => _hp;
+            set
+            {
+                _hp = value;
+                if (_hp <= 0)
+                    OnDie();
+            }
+        }
+
+        protected virtual void OnDie()
+        {
+            Destroy(gameObject);
+        }
+
         protected List<GameObject> Atk { get; } = new();
         protected abstract float NuckbackDist { get; set; }
 
         private IEnumerator _Nuckback(Direction d)
         {
-            foreach (var i in Range(0, 5))
+            foreach (var i in Range(0, 25))
             {
                 if (ValidatePos(transform.position + NuckbackDist * d.V()))
                     transform.position += NuckbackDist * d.V();
-                yield return new WaitForFixedUpdate();
+                yield return new WaitForSeconds(0.01f);
             }
         }
         

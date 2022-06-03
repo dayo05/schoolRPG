@@ -41,12 +41,16 @@ namespace SchoolRPG.GameMain.Entity.AtkParticle
 
         protected override void OnMonsterAtk(Monster monster)
         {
-            Debug.Log("asdf");
             monster.Nuckback((Direction) DataValue);
             base.OnMonsterAtk(monster);
         }
 
         public override float width { get; set; } = 1;
         public override float height { get; set; } = 2.0f / 3;
+        
+        protected override void OnPlayerAtk(Player player)
+        {
+            //Ignore
+        }
     }
 }

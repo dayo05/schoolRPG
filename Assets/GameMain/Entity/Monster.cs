@@ -7,6 +7,8 @@ namespace SchoolRPG.GameMain.Entity
 {
     public class Monster: UnitBase
     {
+        public GameObject cam;
+        
         /// <summary>
         /// Check is player exists on detectable zone and if exists, shoot.
         /// </summary>
@@ -24,13 +26,17 @@ namespace SchoolRPG.GameMain.Entity
             return g;
         }
 
-        public override double Hp { get; set; } = 20;
         protected override float NuckbackDist { get; set; } = moveDist;
         public const float moveDist = 0.05f;
 
         private void Start()
         {
-            //Atk.Add(Resources.Load("MonsterAtk") as GameObject);
+            Hp = 20;
+        }
+
+        private void Update()
+        {
+            SearchPlayer();
         }
 
         public override float width { get; set; } = 1;
