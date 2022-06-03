@@ -1,7 +1,10 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace SchoolRPG.GameMain
+namespace SchoolRPG.GameMain.Entity
 {
     public class EntityHandler: MonoBehaviour
     {
@@ -9,19 +12,21 @@ namespace SchoolRPG.GameMain
         public GameObject map;
         public GameObject monster;
 
-        public List<GameObject> entities = new();
-        
-        void Start()
-        {
-            player = Instantiate(player);
-            entities.Add(player);
-            map = Instantiate(map);
-        }
+        public List<GameObject> monsters = new();
 
-        void RegisterMonster()
+        public void SpawnMonster((int x, int y) loc)
         {
             var g = Instantiate(monster);
-            entities.Add(g);
+            g.transform.position = EntityBase.GetCurrentWorldPos(loc.x, loc.y);
+
+            if (!g.GetComponent<Monster>().ValidatePos())
+            {
+                Destroy(g);
+                throw new ArgumentOutOfRangeException(nameof(loc), "Not able to spawn monster on that place");
+            }
+            monsters.Add(g);
         }
+
+        public IEnumerable Entities => monsters.Concat(new[]{player});
     }
 }

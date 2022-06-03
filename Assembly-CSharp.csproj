@@ -41,9 +41,16 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets/GameMain/Entity/Player.cs" />
+     <Compile Include="Assets/GameMain/Entity/AtkParticle/PlayerArrowAtk.cs" />
      <Compile Include="Assets/GameMain/Entity/EntityBase.cs" />
+     <Compile Include="Assets/GameMain/Entity/AtkParticle/PlayerChairAtk.cs" />
+     <Compile Include="Assets/GameMain/Entity/Monster.cs" />
+     <Compile Include="Assets/GameMain/Entity/AtkParticle/MonsterAtk.cs" />
+     <Compile Include="Assets/GameMain/Entity/AtkParticle/AtkParticleBase.cs" />
      <Compile Include="Assets/GameMain/Entity/EntityHandler.cs" />
+     <Compile Include="Assets/GameMain/Entity/Player.cs" />
+     <Compile Include="Assets/GameMain/Entity/Direction.cs" />
+     <Compile Include="Assets/GameMain/Entity/UnitBase.cs" />
      <Reference Include="UnityEngine">
      <HintPath>/home/dayo/Unity/Hub/Editor/2021.3.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>
@@ -677,15 +684,6 @@
      <Reference Include="mscorlib">
      <HintPath>/home/dayo/Unity/Hub/Editor/2021.3.3f1/Editor/Data/NetStandard/compat/2.1.0/shims/netfx/mscorlib.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualScripting.Flow.Editor">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.VisualScripting.Flow.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Tilemap.Extras">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Tilemap.Extras.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Animation.Editor">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.InternalAPIEngineBridge.001">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
      </Reference>
@@ -695,17 +693,59 @@
      <Reference Include="Unity.2D.PixelPerfect">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.2D.Tilemap.Editor">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
-     </Reference>
      <Reference Include="PsdPlugin">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.VisualScripting.State.Editor">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.VisualScripting.State.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.IK.Editor">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.IK.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Path.Editor">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Path.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEditor.UI">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Rider.Editor">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEngine.UI">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.IK.Runtime">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.IK.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Mathematics.Editor">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Common.Editor">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Flow.Editor">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.VisualScripting.Flow.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Tilemap.Extras">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Tilemap.Extras.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Animation.Editor">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Tilemap.Editor">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VisualStudio.Editor">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Sysroot.Linux_x86_64">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Sysroot.Linux_x86_64.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Timeline">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
@@ -716,47 +756,29 @@
      <Reference Include="Unity.TextMeshPro">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualScripting.State.Editor">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.VisualScripting.State.Editor.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.Burst.Editor">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.IK.Editor">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.IK.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.Sprite.Editor">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.2D.Path.Editor">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Path.Editor.dll</HintPath>
+     <Reference Include="Unity.2D.Psdimporter.Editor">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+     <Reference Include="Unity.InternalAPIEditorBridge.001">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Toolchain.Linux-x86_64">
+     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Toolchain.Linux-x86_64.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.Flow">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.VisualScripting.Flow.dll</HintPath>
      </Reference>
-     <Reference Include="UnityEditor.UI">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.PlasticSCM.Editor">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.Rider.Editor">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Psdimporter.Editor">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.UI">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.2D.Tilemap.Extras.Editor">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.InternalAPIEditorBridge.001">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Services.Core">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Services.Core.dll</HintPath>
@@ -766,9 +788,6 @@
      </Reference>
      <Reference Include="Unity.Mathematics">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.IK.Runtime">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.IK.Runtime.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Services.Core.Analytics">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Services.Core.Analytics.dll</HintPath>
@@ -791,29 +810,17 @@
      <Reference Include="Unity.Timeline.Editor">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.Mathematics.Editor">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.2D.Common.Runtime">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.SpriteShape.Editor">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.SpriteShape.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.2D.Common.Editor">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.2D.SpriteShape.Runtime">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.VisualScripting.State.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Sysroot.Linux_x86_64">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Sysroot.Linux_x86_64.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Toolchain.Linux-x86_64">
-     <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.Toolchain.Linux-x86_64.dll</HintPath>
      </Reference>
      <Reference Include="Unity.SysrootPackage.Editor">
      <HintPath>/home/dayo/UnityProjects/SchoolGame/Library/ScriptAssemblies/Unity.SysrootPackage.Editor.dll</HintPath>
