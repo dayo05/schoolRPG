@@ -12,6 +12,7 @@ namespace SchoolRPG.GameMain.Entity
     {
         private const bool T = true;
         private const bool F = false;
+        public GameObject cam;
 
         protected static bool[][] playerMap = new bool[][]
         {
@@ -35,14 +36,17 @@ namespace SchoolRPG.GameMain.Entity
             new bool[] {F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
         };
         
-        public static Vector3 GetCurrentWorldPos(int x, int y)
-            => new(x, y);
+        public Vector3 GetCurrentWorldPos(int x, int y)
+            => new(x, cam.GetComponent<EntityHandler>().isInversedMap ? -y : y);
         
         public bool ValidatePos() => ValidatePos(transform.localPosition);
 
         protected static bool ValidatePos(Vector3 vec)
-            => playerMap[(int) vec.y][(int) vec.x] && playerMap[(int) (vec.y + 0.9)][(int) vec.x] &&
-               playerMap[(int) vec.y][(int) (vec.x + 0.9)] && playerMap[(int) (vec.y + 0.9)][(int) (vec.x + 0.9)];
+        {
+            if (vec.y < 0) vec.y = -vec.y;
+            return playerMap[(int) vec.y][(int) vec.x] && playerMap[(int) (vec.y + 0.9)][(int) vec.x] &&
+                playerMap[(int) vec.y][(int) (vec.x + 0.9)] && playerMap[(int) (vec.y + 0.9)][(int) (vec.x + 0.9)];
+        }
 
         public abstract float width { get; set; }
         public abstract float height { get; set; }

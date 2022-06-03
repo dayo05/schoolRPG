@@ -10,7 +10,6 @@ namespace SchoolRPG.GameMain.Entity.AtkParticle
         public abstract float DeltaTime { get; set; }
         public int DataValue { get; set; } = -1;
 
-        public GameObject cam;
         private bool isFinished = false;
 
         protected virtual void Update()

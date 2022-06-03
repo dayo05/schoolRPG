@@ -7,8 +7,6 @@ namespace SchoolRPG.GameMain.Entity
 {
     public class Monster: UnitBase
     {
-        public GameObject cam;
-        
         /// <summary>
         /// Check is player exists on detectable zone and if exists, shoot.
         /// </summary>

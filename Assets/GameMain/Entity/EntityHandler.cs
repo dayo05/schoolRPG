@@ -12,24 +12,31 @@ namespace SchoolRPG.GameMain.Entity
         public GameObject player;
         public GameObject map;
         public GameObject monster;
+        public bool isInversedMap = true;
 
         private List<GameObject> monsters = new();
 
         private void Start()
         {
+            map.transform.localScale = isInversedMap ? new Vector3(1, -1, 1) : new Vector3(1, 1, 1);
+            map.transform.position = isInversedMap ? new Vector3(15.5f, -8.5f, 0) : new Vector3(15.5f, 8.5f, 0);
+            transform.position = isInversedMap ? new Vector3(15.5f, -8.5f, -10) : new Vector3(15.5f, 8.5f, -10);
             SpawnMonster((2, 2));
         }
 
         public void SpawnMonster((int x, int y) loc)
         {
             var g = Instantiate(monster);
-            g.transform.position = EntityBase.GetCurrentWorldPos(loc.x, loc.y);
+            g.transform.position = g.GetComponent<Monster>().GetCurrentWorldPos(loc.x, loc.y);
 
+            Debug.Log(g.transform.position);
             if (!g.GetComponent<Monster>().ValidatePos())
             {
+                Debug.Log("Destroyed");
                 Destroy(g);
                 throw new ArgumentOutOfRangeException(nameof(loc), "Not able to spawn monster on that place");
             }
+            g.SetActive(true);
             monsters.Add(g);
         }
 

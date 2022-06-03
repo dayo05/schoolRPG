@@ -16,7 +16,6 @@ namespace SchoolRPG.GameMain.Entity.AtkParticle
         private float startTime;
         private float bias;
         private const float roundAngle = Mathf.PI / 2;
-        private GameObject cam;
         void Start()
         {
             cam = GameObject.Find("Main Camera");
