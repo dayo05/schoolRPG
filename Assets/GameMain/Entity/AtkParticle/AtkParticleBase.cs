@@ -23,9 +23,8 @@ namespace SchoolRPG.GameMain.Entity.AtkParticle
             {
                 foreach (var x in cam.GetComponent<EntityHandler>().monsters)
                 {
-                    
-                    if (other.otherCollider.gameObject.TryGetComponent(out Monster monster)) OnMonsterAtk(monster);
-                    if (other.otherCollider.gameObject.TryGetComponent(out Player player)) OnPlayerAtk(player);
+                    if (x.TryGetComponent(out Monster monster)) OnMonsterAtk(monster);
+                    if (x.TryGetComponent(out Player player)) OnPlayerAtk(player);
                 }
             }
         }
