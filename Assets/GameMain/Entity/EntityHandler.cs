@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SchoolRPG.GameMain.Entity
 {
@@ -29,7 +30,6 @@ namespace SchoolRPG.GameMain.Entity
             var g = Instantiate(monster);
             g.transform.position = g.GetComponent<Monster>().GetCurrentWorldPos(loc.x, loc.y);
 
-            Debug.Log(g.transform.position);
             if (!g.GetComponent<Monster>().ValidatePos())
             {
                 Debug.Log("Destroyed");
@@ -41,5 +41,17 @@ namespace SchoolRPG.GameMain.Entity
         }
 
         public IEnumerable<GameObject> Entities => monsters.Where(x => !x.IsDestroyed()).Concat(new[]{player});
+
+        public void MoveToNextLevel()
+        {
+            Global.CurrentLevel++;
+            SceneManager.LoadScene(gameObject.scene.name);
+        }
+
+        public void MoveToPreviousLevel()
+        {
+            Global.CurrentLevel--;
+            SceneManager.LoadScene(gameObject.scene.name);
+        }
     }
 }

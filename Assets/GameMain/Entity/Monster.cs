@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SchoolRPG.GameMain.Entity.AtkParticle;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace SchoolRPG.GameMain.Entity
 {
@@ -24,17 +27,23 @@ namespace SchoolRPG.GameMain.Entity
             return g;
         }
 
-        protected override float NuckbackDist { get; set; } = moveDist;
-        public const float moveDist = 0.05f;
+        public override double MaxHp { get; protected set; } = 20;
 
-        private void Start()
-        {
-            Hp = 20;
-        }
+        protected override float NuckbackDist => MoveDist * 10;
+        protected override float MoveDist => 0.005f;
 
-        private void Update()
+        private new void Update()
         {
-            SearchPlayer();
+            base.Update();
+            if (!SearchPlayer() && !IsNuckbacked)
+            {
+                var _ = (double) Random.value switch
+                {
+                    < 0.005 => TryMoveBy(lastMoveDirection.R()),
+                    < 0.01 => TryMoveBy(lastMoveDirection.L()),
+                    _ => TryMoveBy(lastMoveDirection)
+                };
+            }
         }
 
         public override float width { get; set; } = 1;
