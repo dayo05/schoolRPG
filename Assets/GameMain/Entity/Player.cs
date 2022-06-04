@@ -14,7 +14,6 @@ namespace SchoolRPG.GameMain.Entity
         // Start is called before the first frame update
         private void Start()
         {
-            transform.position = GetCurrentWorldPos(2, 2);
             Atk.Add(ChairAtk);
             Atk.Add(ArrowAtk);
         }
@@ -53,7 +52,24 @@ namespace SchoolRPG.GameMain.Entity
 
         protected override float NuckbackDist => MoveDist;
 
-        public override float width { get; set; } = 1;
-        public override float height { get; set; } = 1;
+        public override float width { get; set; } = 0.9f;
+        public override float height { get; set; } = 0.9f;
+
+        protected override (bool, Vector3) TryMoveBy(Direction direction, float? dist = null)
+        {
+            var d = base.TryMoveBy(direction, dist);
+            var mp = GetCurrentMapPos(d.Item2);
+            
+            switch (mp.x)
+            {
+                case >= 2 and <= 3 when mp.y == 1:
+                    cam.GetComponent<EntityHandler>().MoveToPreviousLevel();
+                    break;
+                case >= 26 and <= 27 when mp.y == 1:
+                    cam.GetComponent<EntityHandler>().MoveToNextLevel();
+                    break;
+            }
+            return d;
+        }
     }
 }

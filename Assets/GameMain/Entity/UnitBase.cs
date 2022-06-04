@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using SchoolRPG.GameMain.Entity.AtkParticle;
@@ -82,13 +81,14 @@ namespace SchoolRPG.GameMain.Entity
             => StartCoroutine(_Nuckback(d));
 
         protected abstract float MoveDist { get; }
-        public bool TryMoveBy(Direction direction, float? dist = null)
+        protected virtual (bool, Vector3) TryMoveBy(Direction direction, float? dist = null)
         {
             dist ??= MoveDist;
-            if (!ValidatePos(transform.position + dist.Value * direction.V())) return false;
-            transform.position += dist.Value * direction.V();
             lastMoveDirection = direction;
-            return true;
+            var tryPos = transform.position + dist.Value * direction.V();
+            if (!ValidatePos(tryPos)) return (false, tryPos);
+            transform.position = tryPos;
+            return (true, tryPos);
         }
     }
 }

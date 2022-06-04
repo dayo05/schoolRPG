@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using SchoolRPG.GameMain.Entity.AtkParticle;
 using UnityEngine;
-
-using static System.Linq.Enumerable;
 
 namespace SchoolRPG.GameMain.Entity
 {
@@ -35,17 +29,24 @@ namespace SchoolRPG.GameMain.Entity
             new bool[] {F, F, F, F, F, F, T, T, T, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, T, T, T, T, F},
             new bool[] {F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
         };
-        
-        public Vector3 GetCurrentWorldPos(int x, int y)
-            => new(x, cam.GetComponent<EntityHandler>().isInversedMap ? -y : y);
-        
+
+        public static Vector3 GetCurrentWorldPos(int x, int y)
+            => new(x, EntityHandler.IsInversedMap ? -y : y);
+
+        public static (int x, int y) GetCurrentMapPos(Vector3 vec)
+            => ((int) vec.x, (int) Mathf.Abs(vec.y));
+
         public bool ValidatePos() => ValidatePos(transform.localPosition);
 
-        protected static bool ValidatePos(Vector3 vec)
+        protected bool ValidatePos(Vector3 vec)
         {
             if (vec.y < 0) vec.y = -vec.y;
-            return playerMap[(int) vec.y][(int) vec.x] && playerMap[(int) (vec.y + 0.9)][(int) vec.x] &&
-                playerMap[(int) vec.y][(int) (vec.x + 0.9)] && playerMap[(int) (vec.y + 0.9)][(int) (vec.x + 0.9)];
+            vec += new Vector3(0.5f, 0.5f);
+            for(var i = (int)(vec.x - width / 2); i <= vec.x + width / 2; i++)
+                for(var j = (int)(vec.y - height/ 2); j <= vec.y + height / 2; j++)
+                    if (!playerMap[j][i])
+                        return false;
+            return true;
         }
 
         public abstract float width { get; set; }
@@ -53,11 +54,14 @@ namespace SchoolRPG.GameMain.Entity
 
         public static bool IsCollide(EntityBase current, EntityBase other)
         {
-            return !(other.transform.position.x - other.width / 2 > current.transform.position.x + current.width / 2 ||
-                     other.transform.position.x + other.width / 2 < current.transform.position.x - current.width / 2) &&
-                   !(other.transform.position.y - other.height / 2 >
-                     current.transform.position.y + current.height / 2 ||
-                     other.transform.position.y + other.height / 2 < current.transform.position.y - current.height / 2);
+            var position = other.transform.position;
+            var position1 = current.transform.position;
+            
+            return !(position.x - other.width / 2 > position1.x + current.width / 2 ||
+                     position.x + other.width / 2 < position1.x - current.width / 2) &&
+                   !(position.y - other.height / 2 >
+                     position1.y + current.height / 2 ||
+                     position.y + other.height / 2 < position1.y - current.height / 2);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace SchoolRPG.GameMain.Entity.AtkParticle
     {
         public override double Atk { get; set; } = 5;
         public override float DeltaTime { get; set; } = 0.5f;
-        public override float width { get; set; } = 1;
+        public override float width { get; set; } = 0.9f;
         public override float height { get; set; } = 0.2f;
         
         private const float deleteTime = 2;
@@ -30,9 +30,8 @@ namespace SchoolRPG.GameMain.Entity.AtkParticle
             Destroy(gameObject, deleteTime);
         }
 
-        protected override void Update()
+        protected override void Move()
         {
-            base.Update();
             transform.position = startPos + ((Direction) DataValue).V() * (Time.time - startTime) * (12 / deleteTime);
         }
 

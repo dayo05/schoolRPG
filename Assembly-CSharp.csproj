@@ -48,10 +48,10 @@
      <Compile Include="Assets\GameMain\Entity\AtkParticle\PlayerChairAtk.cs" />
      <Compile Include="Assets\GameMain\Entity\Monster.cs" />
      <Compile Include="Assets\GameMain\Entity\AtkParticle\MonsterAtk.cs" />
+     <Compile Include="Assets\GameMain\Util\Global.cs" />
      <Compile Include="Assets\GameMain\Entity\AtkParticle\AtkParticleBase.cs" />
      <Compile Include="Assets\GameMain\Entity\EntityHandler.cs" />
      <Compile Include="Assets\GameMain\Entity\Player.cs" />
-     <Compile Include="Assets\GameMain\Util\Global.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.4f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

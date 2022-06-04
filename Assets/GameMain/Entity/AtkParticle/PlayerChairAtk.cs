@@ -30,9 +30,8 @@ namespace SchoolRPG.GameMain.Entity.AtkParticle
             Destroy(gameObject, deleteTime);
         }
 
-        protected override void Update()
+        protected override void Move()
         {
-            base.Update();
             var angle = bias + roundAngle * (Time.time - startTime) / deleteTime;
             transform.position = cam.GetComponent<EntityHandler>().player.transform.position +
                                  new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
