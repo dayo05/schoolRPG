@@ -44,14 +44,17 @@
      <Compile Include="Assets\GameMain\Entity\AtkParticle\PlayerArrowAtk.cs" />
      <Compile Include="Assets\GameMain\Entity\EntityBase.cs" />
      <Compile Include="Assets\GameMain\Entity\UnitBase.cs" />
-     <Compile Include="Assets\GameMain\Util\Direction.cs" />
+     <Compile Include="Assets\GameMain\Utils\Direction.cs" />
      <Compile Include="Assets\GameMain\Entity\AtkParticle\PlayerChairAtk.cs" />
-     <Compile Include="Assets\GameMain\Entity\Monster.cs" />
-     <Compile Include="Assets\GameMain\Entity\AtkParticle\MonsterAtk.cs" />
-     <Compile Include="Assets\GameMain\Util\Global.cs" />
+     <Compile Include="Assets\GameMain\Entity\ShortDistMonster.cs" />
+     <Compile Include="Assets\GameMain\Entity\AtkParticle\ShortDistMonsterAtk.cs" />
+     <Compile Include="Assets\GameMain\Utils\Global.cs" />
      <Compile Include="Assets\GameMain\Entity\AtkParticle\AtkParticleBase.cs" />
      <Compile Include="Assets\GameMain\Entity\EntityHandler.cs" />
      <Compile Include="Assets\GameMain\Entity\Player.cs" />
+     <Compile Include="Assets\GameMain\Entity\FarDistMonster.cs" />
+     <Compile Include="Assets\GameMain\Entity\AtkParticle\FarDistMonsterAtk.cs" />
+     <Compile Include="Assets\GameMain\Entity\NormalMonsterBase.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.4f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

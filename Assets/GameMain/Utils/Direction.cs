@@ -1,7 +1,8 @@
+using Unity.Mathematics;
 using UnityEngine;
-using static SchoolRPG.GameMain.Entity.Direction;
+using static SchoolRPG.GameMain.Utils.Direction;
 
-namespace SchoolRPG.GameMain.Entity
+namespace SchoolRPG.GameMain.Utils
 {
     public enum Direction: int
     {
@@ -33,6 +34,14 @@ namespace SchoolRPG.GameMain.Entity
             Right => Down,
             Down => Left,
             Left => Up
+        };
+
+        public static Quaternion Q(this Direction d) => d switch
+        {
+            Up => Quaternion.Euler(0, 0, -90),
+            Right => quaternion.Euler(0, 0, 0),
+            Down => Quaternion.Euler(0, 0, 90),
+            Left => Quaternion.Euler(0, 0, 180)
         };
     }
 }

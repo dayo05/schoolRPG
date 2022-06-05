@@ -1,4 +1,4 @@
-namespace SchoolRPG.GameMain.Entity
+namespace SchoolRPG.GameMain.Utils
 {
     public static class Global
     {

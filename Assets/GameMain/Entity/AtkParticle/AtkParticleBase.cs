@@ -1,20 +1,28 @@
-using System;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace SchoolRPG.GameMain.Entity.AtkParticle
+namespace SchoolRPG.GameMain.Utils.AtkParticle
 {
     public abstract class AtkParticleBase: EntityBase
     {
-        public abstract double Atk { get; set; }
-        public abstract float DeltaTime { get; set; }
+        public abstract double Atk { get; }
+        public abstract float DeltaTime { get; }
         public int DataValue { get; set; } = -1;
 
         private bool isFinished = false;
 
         private Vector3 maintainDist = Vector3.zero;
         private GameObject other;
+        private float startTime;
+        protected float dt => Time.time - startTime;
+        public GameObject super;
+
+        protected override void Start()
+        {
+            base.Start();
+            startTime = Time.time;
+        }
 
         protected virtual void Update()
         {
@@ -27,48 +35,56 @@ namespace SchoolRPG.GameMain.Entity.AtkParticle
                 return;
             }
 
-            if (!ValidatePos())
-                DestroySelf(null);
-            else
-            {
-                foreach (var component in cam.GetComponent<EntityHandler>().Entities
-                             .Select(x => x.GetComponent<UnitBase>()).Where(component => IsCollide(component, this)))
-                    switch (component)
-                    {
-                        case Monster monster:
-                            OnMonsterAtk(monster);
-                            break;
-                        case Player player:
-                            OnPlayerAtk(player);
-                            break;
-                    }
-
+            if (!IsCollided())
                 Move();
-            }
         }
 
-        private void DestroySelf(GameObject otherBy)
+        protected virtual bool IsCollided()
+        {
+            if (!ValidatePos())
+            {
+                DestroySelf(null);
+                return true;
+            }
+
+            foreach (var component in handler.Entities
+                         .Select(x => x.GetComponent<UnitBase>()).Where(component => IsCollide(component, this)))
+                switch (component)
+                {
+                    case NormalMonsterBase monster:
+                        return OnMonsterAtk(monster);
+                    case Player player:
+                        return OnPlayerAtk(player);
+                }
+
+            return false;
+        }
+
+        protected void DestroySelf(GameObject otherBy, float deleteAfter = 2)
         {
             other = otherBy;
             if (otherBy is not null)
                 maintainDist = transform.position - otherBy.transform.position;
             if(TryGetComponent<ParticleSystem>(out var p))
                 p.Play();
-            Destroy(gameObject, 2);
+            Destroy(gameObject, deleteAfter);
             isFinished = true;
         }
 
         protected abstract void Move();
-        protected virtual void OnMonsterAtk(Monster monster)
+        protected virtual bool OnMonsterAtk(NormalMonsterBase shortDistMonster)
         {
-            monster.Hp -= Atk;
-            DestroySelf(monster.gameObject);
+            shortDistMonster.Hp -= Atk;
+            DestroySelf(shortDistMonster.gameObject);
+            shortDistMonster.Nuckback((Direction) DataValue);
+            return true;
         }
 
-        protected virtual void OnPlayerAtk(Player player)
+        protected virtual bool OnPlayerAtk(Player player)
         {
             player.Hp -= Atk;
             DestroySelf(player.gameObject);
+            return true;
         }
     }
 }

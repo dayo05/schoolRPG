@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using SchoolRPG.GameMain.Entity.AtkParticle;
+using SchoolRPG.GameMain.Utils.AtkParticle;
 using UnityEngine;
 
 using static System.Linq.Enumerable;
 
-namespace SchoolRPG.GameMain.Entity
+namespace SchoolRPG.GameMain.Utils
 {
     public abstract class UnitBase: EntityBase
     {
-        private List<float> lastShootTime;
+        protected List<float> lastShootTime;
         protected Direction lastMoveDirection = Direction.Right;
         
         protected virtual GameObject TryShoot(int atkIdx, int subData = 0)
@@ -21,21 +21,9 @@ namespace SchoolRPG.GameMain.Entity
             var g = Instantiate(Atk[atkIdx]);
             g.transform.position = transform.position;
             g.GetComponent<AtkParticleBase>().DataValue = subData;
+            g.GetComponent<AtkParticleBase>().super = gameObject;
             g.SetActive(true);
             return g;
-        }
-
-        protected void Update()
-        {
-            lastShootTime ??= new(Repeat<float>(0, Atk.Count));
-            foreach (var i in Range(0, Atk.Count))
-            {
-                var tr = transform.GetChild(i + 1);
-                var rng = (Time.time - lastShootTime[i]) / Atk[i].GetComponent<AtkParticleBase>().DeltaTime;
-                if (rng > 1) rng = 1;
-                tr.localPosition = new Vector3((float) (-0.5 + rng / 2), 0.7f + i * 0.1f, 0);
-                tr.localScale = new Vector3(rng, 0.1f, 0);
-            }
         }
 
         private double? _hp;
@@ -53,7 +41,7 @@ namespace SchoolRPG.GameMain.Entity
             }
         }
         
-        public abstract double MaxHp { get; protected set; }
+        public abstract double MaxHp { get; }
 
         protected virtual void OnDie()
         {

@@ -4,12 +4,12 @@ using static SchoolRPG.GameMain.Utils.Direction;
 
 namespace SchoolRPG.GameMain.Utils.AtkParticle
 {
-    public class PlayerArrowAtk: AtkParticleBase
+    public class FarDistMonsterAtk: AtkParticleBase
     {
-        public override double Atk => 5;
-        public override float DeltaTime => 0.5f;
-        public override float width => 0.9f;
-        public override float height => 0.2f;
+        public override float width => 0.45f;
+        public override float height => 0.45f;
+        public override double Atk => 10;
+        public override float DeltaTime => 1;
         
         private const float deleteTime = 2;
         private Vector3 startPos;
@@ -32,10 +32,8 @@ namespace SchoolRPG.GameMain.Utils.AtkParticle
         {
             transform.position = startPos + ((Direction) DataValue).V() * dt * (12 / deleteTime);
         }
-
-        protected override bool OnPlayerAtk(Player player)
-        {
-            return false;
-        }
+        
+        protected override bool OnMonsterAtk(NormalMonsterBase shortDistMonster)
+            => shortDistMonster != super.GetComponent<NormalMonsterBase>() && base.OnMonsterAtk(shortDistMonster);
     }
 }

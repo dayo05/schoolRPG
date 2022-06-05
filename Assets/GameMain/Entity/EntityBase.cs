@@ -1,12 +1,13 @@
 using UnityEngine;
 
-namespace SchoolRPG.GameMain.Entity
+namespace SchoolRPG.GameMain.Utils
 {
     public abstract class EntityBase: MonoBehaviour
     {
         private const bool T = true;
         private const bool F = false;
-        public GameObject cam;
+        //public GameObject cam;
+        protected EntityHandler handler;
 
         protected static bool[][] playerMap = new bool[][]
         {
@@ -40,17 +41,26 @@ namespace SchoolRPG.GameMain.Entity
 
         protected bool ValidatePos(Vector3 vec)
         {
+            var normAng = transform.rotation.eulerAngles.z % 180;
+            if (normAng < 0) normAng += 180;
+            var (rw, rh) = normAng is < 135 and > 45 ? (height, width) : (width, height);
+            
             if (vec.y < 0) vec.y = -vec.y;
             vec += new Vector3(0.5f, 0.5f);
-            for(var i = (int)(vec.x - width / 2); i <= vec.x + width / 2; i++)
-                for(var j = (int)(vec.y - height/ 2); j <= vec.y + height / 2; j++)
+            for(var i = (int)(vec.x - rw / 2); i <= vec.x + rw / 2; i++)
+                for(var j = (int)(vec.y - rh/ 2); j <= vec.y + rh / 2; j++)
                     if (!playerMap[j][i])
                         return false;
             return true;
         }
 
-        public abstract float width { get; set; }
-        public abstract float height { get; set; }
+        protected virtual void Start()
+        {
+            handler = GameObject.Find("Main Camera").GetComponent<EntityHandler>();
+        }
+
+        public abstract float width { get; }
+        public abstract float height { get; }
 
         public static bool IsCollide(EntityBase current, EntityBase other)
         {
