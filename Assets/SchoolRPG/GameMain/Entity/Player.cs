@@ -1,6 +1,6 @@
 using SchoolRPG.GameMain.Utils.AtkParticle;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 using static System.Linq.Enumerable;
 using static SchoolRPG.GameMain.Utils.Direction;
 
@@ -12,17 +12,16 @@ namespace SchoolRPG.GameMain.Utils
 
         public GameObject ArrowAtk;
 
-        // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
             Atk.Add(ChairAtk);
             Atk.Add(ArrowAtk);
+            Hp = Global.PlayerHealth;
         }
 
         protected override float MoveDist => 4.0f * Time.deltaTime;
 
-        // Update is called once per frame
         private void Update()
         {
             lastShootTime ??= new(Repeat<float>(0, Atk.Count));
@@ -69,15 +68,21 @@ namespace SchoolRPG.GameMain.Utils
         protected override (bool, Vector3) TryMoveBy(Direction direction, float? dist = null)
         {
             var d = base.TryMoveBy(direction, dist);
-            var mp = GetCurrentMapPos(d.Item2);
+            var (x, y) = GetCurrentMapPos(d.Item2);
 
-            switch (mp.x)
+            switch (x)
             {
-                case >= 2 and <= 3 when mp.y == 1:
-                    handler.MoveToPreviousLevel();
+                case >= 2 and <= 3 when y == 1 && !Global.IsBossFightMap:
+                    Global.PlayerHealth = Hp;
+                    Global.MoveToPreviousLevel();
                     break;
-                case >= 26 and <= 27 when mp.y == 1:
-                    handler.MoveToNextLevel();
+                case >= 26 and <= 27 when y == 1 && !Global.IsBossFightMap:
+                    Global.PlayerHealth = Hp;
+                    Global.MoveToNextLevel();
+                    break;
+                case >= 15 and <= 16 when y == 1 && Global.IsBossFightMap:
+                    Global.PlayerHealth = Hp;
+                    Global.MoveToPreviousLevel();
                     break;
             }
 
@@ -86,7 +91,7 @@ namespace SchoolRPG.GameMain.Utils
 
         protected override void OnDie()
         {
-            Debug.Log("Game Over");
+            SceneManager.LoadScene("GameOverScene");
             base.OnDie();
         }
     }
