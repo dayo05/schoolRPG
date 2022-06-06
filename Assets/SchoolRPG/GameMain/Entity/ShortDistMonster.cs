@@ -1,6 +1,7 @@
+using SchoolRPG.GameMain.Utils;
 using UnityEngine;
 
-namespace SchoolRPG.GameMain.Utils
+namespace SchoolRPG.GameMain.Entity
 {
     public class ShortDistMonster: NormalMonsterBase
     {
@@ -12,10 +13,10 @@ namespace SchoolRPG.GameMain.Utils
             return t;
         }
 
-        public override double MaxHp => 20;
+        public override double MaxHp => (Global.CurrentLevel + 1) * 20;
 
         protected override float NuckbackDist => MoveDist * 10;
-        protected override float MoveDist => 0.005f;
+        protected override float MoveDist => Time.deltaTime * 2;
         
         public override float width => 0.9f;
         public override float height => 0.9f;

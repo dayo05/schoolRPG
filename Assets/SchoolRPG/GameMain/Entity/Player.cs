@@ -1,10 +1,11 @@
-using SchoolRPG.GameMain.Utils.AtkParticle;
+using SchoolRPG.GameMain.Entity.AtkParticle;
+using SchoolRPG.GameMain.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static System.Linq.Enumerable;
 using static SchoolRPG.GameMain.Utils.Direction;
 
-namespace SchoolRPG.GameMain.Utils
+namespace SchoolRPG.GameMain.Entity
 {
     public class Player : UnitBase
     {
@@ -58,12 +59,12 @@ namespace SchoolRPG.GameMain.Utils
                 TryShoot(1, Right.I());
         }
 
-        public override double MaxHp => 20;
+        public override double MaxHp => Global.PlayerMaxHealth;
 
         protected override float NuckbackDist => MoveDist;
 
-        public override float width => 0.9f;
-        public override float height => 0.9f;
+        public override float width => 0.5f;
+        public override float height => 0.5f;
 
         protected override (bool, Vector3) TryMoveBy(Direction direction, float? dist = null)
         {
@@ -72,15 +73,15 @@ namespace SchoolRPG.GameMain.Utils
 
             switch (x)
             {
-                case >= 2 and <= 3 when y == 1 && !Global.IsBossFightMap:
+                case >= 1 and <= 3 when y <= 1 && !Global.IsBossFightMap:
                     Global.PlayerHealth = Hp;
                     Global.MoveToPreviousLevel();
                     break;
-                case >= 26 and <= 27 when y == 1 && !Global.IsBossFightMap:
+                case >= 25 and <= 27 when y <= 1 && !Global.IsBossFightMap:
                     Global.PlayerHealth = Hp;
                     Global.MoveToNextLevel();
                     break;
-                case >= 15 and <= 16 when y == 1 && Global.IsBossFightMap:
+                case >= 14 and <= 16 when y <= 1 && Global.IsBossFightMap:
                     Global.PlayerHealth = Hp;
                     Global.MoveToPreviousLevel();
                     break;

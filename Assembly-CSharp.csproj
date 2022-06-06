@@ -43,20 +43,26 @@
   <ItemGroup>
      <Compile Include="Assets\SchoolRPG\GameMain\Entity\AtkParticle\PlayerArrowAtk.cs" />
      <Compile Include="Assets\SchoolRPG\GameMain\Entity\EntityBase.cs" />
+     <Compile Include="Assets\SchoolRPG\GameOver\GameOverSceneManager.cs" />
      <Compile Include="Assets\SchoolRPG\GameMain\Entity\UnitBase.cs" />
+     <Compile Include="Assets\SchoolRPG\GameMain\Entity\FarDistMonster.cs" />
      <Compile Include="Assets\SchoolRPG\GameMain\Utils\Direction.cs" />
      <Compile Include="Assets\SchoolRPG\GameMain\Entity\AtkParticle\PlayerChairAtk.cs" />
+     <Compile Include="Assets\SchoolRPG\GameMain\Entity\NormalMonsterBase.cs" />
      <Compile Include="Assets\SchoolRPG\GameMain\Entity\ShortDistMonster.cs" />
      <Compile Include="Assets\SchoolRPG\GameMain\Entity\AtkParticle\ShortDistMonsterAtk.cs" />
      <Compile Include="Assets\SchoolRPG\GameMain\Utils\Global.cs" />
+     <Compile Include="Assets\SchoolRPG\GameMain\Entity\AtkParticle\FarDistMonsterAtk.cs" />
      <Compile Include="Assets\SchoolRPG\GameMain\Entity\AtkParticle\AtkParticleBase.cs" />
      <Compile Include="Assets\SchoolRPG\GameMain\Entity\EntityHandler.cs" />
-     <Compile Include="Assets\SchoolRPG\GameMain\Entity\Player.cs" />
-     <Compile Include="Assets\SchoolRPG\GameMain\Entity\FarDistMonster.cs" />
-     <Compile Include="Assets\SchoolRPG\GameMain\Entity\AtkParticle\FarDistMonsterAtk.cs" />
-     <Compile Include="Assets\SchoolRPG\GameMain\Entity\NormalMonsterBase.cs" />
-     <Compile Include="Assets\SchoolRPG\GameOver\GameOverSceneManager.cs" />
      <Compile Include="Assets\SchoolRPG\GameStart\GameStartSceneManager.cs" />
+     <Compile Include="Assets\SchoolRPG\GameMain\Entity\Player.cs" />
+     <Compile Include="Assets\SchoolRPG\GameMain\Entity\BossMonster.cs" />
+     <Compile Include="Assets\SchoolRPG\GameMain\Entity\AtkParticle\Boss\BossAtk1.cs" />
+     <Compile Include="Assets\SchoolRPG\GameMain\Questions\Question.cs" />
+     <Compile Include="Assets\SchoolRPG\GameMain\Questions\QuestionHandler.cs" />
+     <Compile Include="Assets\SchoolRPG\GameMain\Entity\AtkParticle\Boss\BossAtk2.cs" />
+     <Compile Include="Assets\SchoolRPG\GameMain\Entity\AtkParticle\Boss\BossAtk3.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.4f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

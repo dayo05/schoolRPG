@@ -1,23 +1,21 @@
+using SchoolRPG.GameMain.Utils;
 using UnityEngine;
-
 using static SchoolRPG.GameMain.Utils.Direction;
 
-namespace SchoolRPG.GameMain.Utils.AtkParticle
+namespace SchoolRPG.GameMain.Entity.AtkParticle
 {
     public class FarDistMonsterAtk: AtkParticleBase
     {
         public override float width => 0.45f;
         public override float height => 0.45f;
-        public override double Atk => 10;
+        public override double Atk => 5 * (Global.CurrentLevel + 1);
         public override float DeltaTime => 1;
         
         private const float deleteTime = 2;
-        private Vector3 startPos;
         
         protected override void Start()
         {
             base.Start();
-            startPos = transform.position;
             transform.rotation = Quaternion.Euler(0, 0, (Direction)DataValue switch
             {
                 Up => 45,

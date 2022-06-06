@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using SchoolRPG.GameMain.Utils.AtkParticle;
+using SchoolRPG.GameMain.Entity.AtkParticle;
+using SchoolRPG.GameMain.Utils;
 using UnityEngine;
 
 using static System.Linq.Enumerable;
 
-namespace SchoolRPG.GameMain.Utils
+namespace SchoolRPG.GameMain.Entity
 {
     public abstract class UnitBase: EntityBase
     {
@@ -34,8 +35,8 @@ namespace SchoolRPG.GameMain.Utils
             set
             {
                 _hp = value;
-                transform.GetChild(0).localPosition = new Vector3((float)(-0.5 + value / (MaxHp  * 2)), 0.6f, 0);
-                transform.GetChild(0).localScale = new Vector3((float) (value / MaxHp), 0.1f, 0);
+                transform.GetChild(0).localPosition = new Vector3((float)(-width / 2 + value / (MaxHp * 2) * width), height / 2 + 0.1f, 0);
+                transform.GetChild(0).localScale = new Vector3((float) (value / MaxHp) * width, 0.1f, 0);
                 if (_hp <= 0)
                     OnDie();
             }
@@ -56,7 +57,7 @@ namespace SchoolRPG.GameMain.Utils
         private IEnumerator _Nuckback(Direction d)
         {
             IsNuckbacked = true;
-            foreach (var i in Range(0, 25))
+            foreach (var i in Range(0, 5))
             {
                 TryMoveBy(d, NuckbackDist);
                 yield return new WaitForSeconds(0.01f);
@@ -77,6 +78,12 @@ namespace SchoolRPG.GameMain.Utils
             if (!ValidatePos(tryPos)) return (false, tryPos);
             transform.position = tryPos;
             return (true, tryPos);
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            Hp = MaxHp;
         }
     }
 }

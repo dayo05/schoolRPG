@@ -1,8 +1,9 @@
 using System.Linq;
+using SchoolRPG.GameMain.Utils;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace SchoolRPG.GameMain.Utils.AtkParticle
+namespace SchoolRPG.GameMain.Entity.AtkParticle
 {
     public abstract class AtkParticleBase: EntityBase
     {
@@ -18,9 +19,12 @@ namespace SchoolRPG.GameMain.Utils.AtkParticle
         protected float dt => Time.time - startTime;
         public GameObject super;
 
+        protected Vector3 startPos;
+
         protected override void Start()
         {
             base.Start();
+            startPos = transform.position;
             startTime = Time.time;
         }
 
@@ -55,6 +59,8 @@ namespace SchoolRPG.GameMain.Utils.AtkParticle
                         return OnMonsterAtk(monster);
                     case Player player:
                         return OnPlayerAtk(player);
+                    case BossMonster boss:
+                        return OnBossMonsterAtk(boss);
                 }
 
             return false;
@@ -84,6 +90,14 @@ namespace SchoolRPG.GameMain.Utils.AtkParticle
         {
             player.Hp -= Atk;
             DestroySelf(player.gameObject);
+            return true;
+        }
+
+        protected virtual bool OnBossMonsterAtk(BossMonster boss)
+        {
+            if(!boss.IsIgnoreAtk)
+                boss.Hp -= Atk;
+            DestroySelf(boss.gameObject);
             return true;
         }
     }

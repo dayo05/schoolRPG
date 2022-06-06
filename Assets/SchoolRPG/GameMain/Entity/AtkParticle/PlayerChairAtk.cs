@@ -1,11 +1,12 @@
+using SchoolRPG.GameMain.Utils;
 using UnityEngine;
 using static SchoolRPG.GameMain.Utils.Direction;
 
-namespace SchoolRPG.GameMain.Utils.AtkParticle
+namespace SchoolRPG.GameMain.Entity.AtkParticle
 {
     public class PlayerChairAtk: AtkParticleBase
     {
-        public override double Atk => 10;
+        public override double Atk => 10 * Global.PlayerChairAtk;
         public override float DeltaTime => 1;
 
         private const float deleteTime = 0.25f;

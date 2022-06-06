@@ -1,6 +1,7 @@
+using SchoolRPG.GameMain.Utils;
 using UnityEngine;
 
-namespace SchoolRPG.GameMain.Utils
+namespace SchoolRPG.GameMain.Entity
 {
     public abstract class EntityBase: MonoBehaviour
     {
@@ -32,7 +33,7 @@ namespace SchoolRPG.GameMain.Utils
         } : new bool[][]
         {
             new bool[] {F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-            new bool[] {F, T, T, T, T, T, T, T, T, T, T, T, T, T, T, F, F, T, T, T, T, T, T, T, T, T, T, T, T, T, T, F},
+            new bool[] {F, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, F},
             new bool[] {F, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, F},
             new bool[] {F, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, F},
             new bool[] {F, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, F},
@@ -54,12 +55,14 @@ namespace SchoolRPG.GameMain.Utils
         public static Vector3 GetCurrentWorldPos(int x, int y)
             => new(x, EntityHandler.IsInversedMap ? -y : y);
 
+        protected (int x, int y) GetCurrentMapPos() => GetCurrentMapPos(transform.position);
+
         public static (int x, int y) GetCurrentMapPos(Vector3 vec)
             => ((int) vec.x, (int) Mathf.Abs(vec.y));
 
         public bool ValidatePos() => ValidatePos(transform.localPosition);
 
-        protected bool ValidatePos(Vector3 vec)
+        protected virtual bool ValidatePos(Vector3 vec)
         {
             var normAng = transform.rotation.eulerAngles.z % 180;
             if (normAng < 0) normAng += 180;

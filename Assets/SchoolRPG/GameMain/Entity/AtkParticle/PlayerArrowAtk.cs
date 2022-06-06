@@ -1,23 +1,21 @@
+using SchoolRPG.GameMain.Utils;
 using UnityEngine;
-
 using static SchoolRPG.GameMain.Utils.Direction;
 
-namespace SchoolRPG.GameMain.Utils.AtkParticle
+namespace SchoolRPG.GameMain.Entity.AtkParticle
 {
     public class PlayerArrowAtk: AtkParticleBase
     {
-        public override double Atk => 5;
+        public override double Atk => 5 * Global.PlayerArrowAtk;
         public override float DeltaTime => 0.5f;
         public override float width => 0.9f;
         public override float height => 0.2f;
         
-        private const float deleteTime = 2;
-        private Vector3 startPos;
+        private const float deleteTime = 1;
         
         protected override void Start()
         {
             base.Start();
-            startPos = transform.position;
             transform.rotation = Quaternion.Euler(0, 0, (Direction)DataValue switch
             {
                 Up => 45,
@@ -30,7 +28,7 @@ namespace SchoolRPG.GameMain.Utils.AtkParticle
 
         protected override void Move()
         {
-            transform.position = startPos + ((Direction) DataValue).V() * dt * (12 / deleteTime);
+            transform.position = startPos + ((Direction) DataValue).V() * dt * (6 / deleteTime);
         }
 
         protected override bool OnPlayerAtk(Player player)

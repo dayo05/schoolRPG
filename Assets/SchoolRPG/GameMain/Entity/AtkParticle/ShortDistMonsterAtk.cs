@@ -1,10 +1,11 @@
+using SchoolRPG.GameMain.Utils;
 using UnityEngine;
 
-namespace SchoolRPG.GameMain.Utils.AtkParticle
+namespace SchoolRPG.GameMain.Entity.AtkParticle
 {
     public class ShortDistMonsterAtk: AtkParticleBase
     {
-        public override double Atk => 10;
+        public override double Atk => 10 * (Global.CurrentLevel + 1);
         public override float DeltaTime => 1;
         private const float DeleteAfter = 0.5f;
 
